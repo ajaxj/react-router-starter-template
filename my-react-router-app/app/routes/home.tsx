@@ -2,6 +2,7 @@ import { env } from "cloudflare:workers";
 
 import type { Route } from "./+types/home";
 import { Welcome } from "../welcome/welcome";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -15,5 +16,10 @@ export function loader() {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  return <Welcome message={loaderData.message} />;
+  return (
+    <>
+      <p>Demo <Link to="/demo">/demo</Link></p>
+      <Welcome message={loaderData.message} />
+    </>
+  );
 }
