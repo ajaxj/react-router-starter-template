@@ -2,8 +2,8 @@
 // serv00 masrtommy
 //https://gin1.zhibo20.com  port:37185
 // export const API_BASE_URL = "https://gin1.zhibo20.com";
-// export const API_BASE_URL = "http://localhost:42106";
-export const API_BASE_URL = "http://gin2.marstommy.serv00.net";
+export const API_BASE_URL = "http://localhost:42106";
+// export const API_BASE_URL = "http://gin2.marstommy.serv00.net";
 
 //http://gin2.marstommy.serv00.net/ port:42106 和本地测试用这个
 
@@ -23,6 +23,14 @@ export const API_ENDPOINTS = {
 
 
     TEMP_CATEGORIES: `${API_BASE_URL}/v1/temp/categories`,
+
+    //site http://localhost:42106/site/home
+    HOME_MOVIE_LIST : `${API_BASE_URL}/site/home`,
+    //site category http://localhost:42106/site/category/xxzy/
+    HOME_BY_CATEGORY_MOVIE_LIST_ : `${API_BASE_URL}/site/category`,
+
+
+
     // TEMP_TAGS: `${API_BASE_URL}/v1/temp/tags`,
     // TEMP_MOVIES: `${API_BASE_URL}/v1/temp/movies`,
     // TEMP_TV_RES: `${API_BASE_URL}/v1/temp/tv/res`,

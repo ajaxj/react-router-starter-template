@@ -9,6 +9,9 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import Header from "~/components/header";
+import Footer from "~/components/footer";
+import { useTheme } from "~/hooks/use-theme";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,6 +27,7 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { dark, toggle } = useTheme();
   return (
     <html lang="en">
       <head>
@@ -32,8 +36,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body suppressHydrationWarning={true}>
+      <div className="min-h-screen bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+        <Header dark={dark} onToggle={toggle} activeItem="首页" />
         {children}
+
+        <Footer />
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
