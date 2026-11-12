@@ -9,11 +9,12 @@ type ShowCardProps = {
 export default function ShowCard1({ show, showPlayButton = true }: ShowCardProps) {
     return (
         <li className="p-1.5 sm:p-2.5">
-            <a
-                href="#"
-                title={show.title}
-                className="group relative block aspect-[5/7] w-full overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700"
-            >
+            {/*<a*/}
+            {/*    href="#"*/}
+            {/*    title={show.title}*/}
+            {/*    className="group relative block aspect-[5/7] w-full overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700"*/}
+            {/*>*/}
+            <Link to={`/movie/${show.id}`} title={show.title} className="group relative block aspect-[5/7] w-full overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
                 <img
                     src={show.img}
                     alt={show.title}
@@ -33,7 +34,7 @@ export default function ShowCard1({ show, showPlayButton = true }: ShowCardProps
                 <span className="absolute bottom-0 left-0 z-20 w-full rounded-b-lg bg-gradient-to-t from-black/50 to-transparent px-2 py-1 text-center text-[10px] text-white sm:px-2.5 sm:py-1.5 sm:text-xs">
           {show.status}
         </span>
-            </a>
+            </Link>
             <h3 className="m-0 rounded-b-lg bg-[#f9f9f9] px-2 py-1 text-center dark:bg-gray-700 sm:px-4 sm:py-1.5">
                 {/*<a*/}
                 {/*    href="#"*/}
@@ -42,7 +43,7 @@ export default function ShowCard1({ show, showPlayButton = true }: ShowCardProps
                 {/*>*/}
                 {/*    {show.title}*/}
                 {/*</a>*/}
-                <Link to={`/movie/${show.title}`} title={show.title} className="block truncate text-[11px] text-gray-700 hover:text-[#ef4444] dark:text-gray-200 dark:hover:text-red-400 sm:text-[13px]">
+                <Link to={`/movie/${show.id}`} title={show.title} className="block truncate text-[11px] text-gray-700 hover:text-[#ef4444] dark:text-gray-200 dark:hover:text-red-400 sm:text-[13px]">
                     {show.title}
                 </Link>
             </h3>

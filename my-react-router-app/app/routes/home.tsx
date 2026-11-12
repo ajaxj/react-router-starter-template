@@ -223,7 +223,7 @@ export default function Home({loaderData,}: Route.ComponentProps) {
               <Section key={section.category.name} title={section.category.name} href={`/category${section.category.fetch_url}`}>
                 <ul className="grid grid-cols-3 gap-0 sm:grid-cols-4 md:grid-cols-5">
                   {section.movie_list.map((show) => (
-                    <ShowCard1 key={show.title} show={show} />
+                    <ShowCard1 key={show.id} show={show} />
                   ))}
                 </ul>
               </Section>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import type { Route } from "./+types/movie-detail";
 
 import ShowCard from "~/components/show-card";
+import {API_ENDPOINTS} from "~/lib/api";
+import type {CategoryItem, TempMovie} from "~/types";
 
 
 const showInfo = {
@@ -78,6 +80,19 @@ const recentUpdates = [
     { title: "图书馆员：下一章第二季", status: "更新至12集" },
 ];
 
+export async function loader({ params }: Route.LoaderArgs) {
+
+    const res = await fetch(`${API_ENDPOINTS.MOVIE_DETAIL}/${params.id}`);
+    const json: TempMovie = await res.json();
+
+
+
+    //延时3秒
+    // await new Promise(resolve => setTimeout(resolve, 3000));
+    return json
+}
+
+
 export function meta({}: Route.MetaArgs) {
     return [
         { title: "Disney+《幻视任务》迅雷下载/在线观看/百度云-魔幻/科幻-美剧天堂" },
@@ -132,7 +147,11 @@ function EpisodeList({ episodes, label }: { episodes: { n: number; href: string 
     );
 }
 
-export default function MovieDetail() {
+export default function MovieDetail({loaderData,
+                                    }: Route.ComponentProps) {
+
+    const data = loaderData
+
 
     const [downloadTab, setDownloadTab] = useState<"magnet" | "pan" | "quark">("magnet");
     const [copied, setCopied] = useState<string | null>(null);
@@ -171,16 +190,16 @@ export default function MovieDetail() {
 
                         <div className="flex-1">
                             <h1 className="mb-2 text-xl font-bold text-gray-800 dark:text-gray-100 sm:text-2xl">
-                                {showInfo.title}
+                                {data.title}
                                 <span className="ml-2 text-base font-normal text-gray-500 dark:text-gray-400">({showInfo.year})</span>
                             </h1>
                             <ul className="space-y-0.5">
-                                <InfoRow label="原名" value={showInfo.originalName} />
-                                <InfoRow label="别名" value={showInfo.alias} />
-                                <InfoRow label="状态" value={showInfo.status} highlight />
-                                <InfoRow label="主演" value={showInfo.actors} />
-                                <InfoRow label="导演" value={showInfo.directors} />
-                                <InfoRow label="首播日期" value={showInfo.premiere} />
+                                <InfoRow label="原名" value={data.original_name} />
+                                <InfoRow label="别名" value={data.alias_name} />
+                                <InfoRow label="状态" value={data.status} highlight />
+                                <InfoRow label="主演" value={data.actors} />
+                                <InfoRow label="导演" value={data.director} />
+                                <InfoRow label="首播日期" value={data.finished} />
                                 <InfoRow label="更新周期" value={showInfo.updateCycle} />
                                 <InfoRow
                                     label="小分类"
@@ -194,10 +213,9 @@ export default function MovieDetail() {
                     </span>
                                     }
                                 />
-                                <InfoRow label="字幕组" value={showInfo.subGroup} />
-                                <InfoRow label="电视台" value={showInfo.tvStation} />
-                                <InfoRow label="永久域名" value={showInfo.permanentDomain} highlight />
-                                <InfoRow label="更新" value={showInfo.updatedAt} />
+                                <InfoRow label="字幕组" value={data.subtitle_group} />
+                                <InfoRow label="电视台" value={data.tv_station} />
+                                <InfoRow label="更新" value={data.updated} />
                             </ul>
                         </div>
                     </div>

@@ -29,6 +29,10 @@ export const API_ENDPOINTS = {
     //site category http://localhost:42106/site/category/xxzy/
     HOME_BY_CATEGORY_MOVIE_LIST_ : `${API_BASE_URL}/site/category`,
 
+    MOVIE_DETAIL : `${API_BASE_URL}/site/movie`,
+
+
+
 
 
     // TEMP_TAGS: `${API_BASE_URL}/v1/temp/tags`,
