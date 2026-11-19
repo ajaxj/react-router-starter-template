@@ -20,9 +20,25 @@ const medalBg: Record<number, string> = {
   3: "#cd7f32",
 };
 
+const avatarGradients = [
+  "from-orange-400 to-red-500",
+  "from-indigo-400 to-purple-500",
+  "from-sky-400 to-blue-500",
+  "from-cyan-400 to-teal-500",
+  "from-amber-400 to-orange-500",
+  "from-pink-400 to-rose-500",
+  "from-emerald-400 to-green-500",
+  "from-violet-400 to-fuchsia-500",
+];
+
 export default function VideoCard({ video }: { video: VideoCardData }) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
+
+  const isImageThumb = /^https?:\/\//i.test(video.thumb || "");
+  const avatarGradient = isImageThumb
+    ? avatarGradients[video.id % avatarGradients.length]
+    : video.thumb;
 
   return (
     <Link to={`/video/${video.id}`} className="group relative block">
@@ -40,7 +56,12 @@ export default function VideoCard({ video }: { video: VideoCardData }) {
       ) : null}
 
       <div className={`overflow-hidden rounded-lg ${isDark ? "bg-[#15151c] group-hover:bg-[#1a1a22]" : "bg-white group-hover:bg-gray-100"} transition-colors duration-300`}>
-        <div className={`relative aspect-video bg-gradient-to-br ${video.thumb} overflow-hidden`}>
+        <div className="relative aspect-video overflow-hidden">
+          {isImageThumb ? (
+            <img src={video.thumb} alt={video.title} className="h-full w-full object-cover" loading="lazy" />
+          ) : (
+            <div className={`absolute inset-0 bg-gradient-to-br ${video.thumb}`} />
+          )}
           <div className={`absolute inset-0 transition-colors ${isDark ? "bg-black/10" : "bg-black/5"} group-hover:bg-black/0`} />
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm">
@@ -63,7 +84,7 @@ export default function VideoCard({ video }: { video: VideoCardData }) {
           </h3>
           <div className={`flex items-center gap-2 text-xs ${isDark ? "text-gray-500" : "text-gray-500"}`}>
             <span className="flex items-center gap-1 hover:text-gray-300 transition-colors">
-              <span className={`h-5 w-5 rounded-full bg-gradient-to-br ${video.thumb} flex-shrink-0`}></span>
+              <span className={`h-5 w-5 rounded-full bg-gradient-to-br ${avatarGradient} flex-shrink-0`}></span>
               <span className="truncate">{video.uploader}</span>
             </span>
           </div>
